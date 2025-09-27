@@ -1,0 +1,158 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  /* border: 1px solid red; */
+  font-family: 'Montserrat', 'Arial Black', Arial, sans-serif;
+  color: white;
+}
+
+body{
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background-color: #181818;
+}
+
+header {
+  display: flex;
+  flex-direction: column;
+  gap: 120px;
+  height: 400px;
+  background-image: url('../images/meal.jpg');
+  background-size: cover;
+  background-position: center;
+  background-color: rgba(0,0,0,0.5);
+  background-blend-mode: darken;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+}
+
+header h1 {
+  margin: 0px;
+  display: flex;
+  justify-content: center;
+  color: white;
+  font-family: 'Pacifico', cursive;
+  font-size: 3rem; /* adjust as needed */
+  font-weight: normal;
+  letter-spacing: 2px;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  margin-top: 20px;
+}
+
+button {
+  color: white;
+  background: none;
+  padding: 10px 30px;
+  border: none;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 100px;
+  border: 1px solid transparent;
+}
+
+button.active {
+  border: 1px solid white;
+  background-color: rgba(197, 82, 17, 0.6);
+  color: #fff;
+}
+
+#content {
+  flex: 1;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+#content img {
+  max-width: 500px;   
+  height: auto;      
+  border-radius: 12px;
+  
+}
+
+#content p {
+  width: 500px;
+  font-size: 1.5rem;
+  text-align: center;
+  font-family: 'Pacifico', cursive;
+}
+
+#content div p:nth-of-type(1) {
+  font-size: 2rem;
+}
+
+.menu-container {
+  display: flex;
+}
+
+.menu-container > div {
+  background-color: white;
+  min-width: 400px;   /* ensures div is visible */
+  min-height: 400px;  /* ensures div is visible */
+  padding: 1rem;
+  margin: 1rem;
+  border-radius: 12px;
+  background-color: rgba(0,0,0,0.5);
+  background-blend-mode: darken;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+}
+
+.menu-container > div > div {
+  font-family: 'Pacifico', cursive;
+  font-size: 1.5rem;
+}
+
+.ciorba {
+  background-image: url('../images/ciorba.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 200px;
+  border-radius: 12px;
+}
+
+.sarmale {
+  background-image: url('../images/sarmale.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 200px;
+  border-radius: 12px;
+}
+
+.mici {
+  background-image: url('../images/mici.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 200px;
+  border-radius: 12px;
+}
+
+.papanasi {
+  background-image: url('../images/papanasi.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 200px;
+  border-radius: 12px;
+}
+
+.contacts {
+  display: flex;
+  flex-direction: column;
+  border: 2px dotted white;
+  padding: 0px 20px;
+}
+
+.contacts ul {
+  width: 500px;
+}
