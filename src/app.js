@@ -23,15 +23,15 @@ function switchProject(project) {
 }
 
 function addTodoToCurrentProject(todoData) {
-  const newTodo = new Todo(
-    todoData.title,
-    todoData.description,
-    todoData.dueDate,
-    todoData.priority
-  );
-  currentProject.addTodo(newTodo);
+    const newTodo = new Todo(
+        todoData.title,
+        todoData.description,
+        todoData.dueDate,
+        todoData.priority
+    );
+    currentProject.addTodo(newTodo);
 
-  saveToStorage();
+    saveToStorage();
 }
 
 function removeTodoFromCurrentProject(todo) {
@@ -51,39 +51,46 @@ function saveToStorage() {
 }
 
 function loadFromStorage() {
-  const data = localStorage.getItem('projects');
-  if (data) {
-    const parsed = JSON.parse(data);
+    const data = localStorage.getItem('projects');
+    if (data) {
+        const parsed = JSON.parse(data);
 
-    projects = parsed.map(proj =>
-      new Project(
-        proj._title,
-        proj._todoList.map(
-          todo => new Todo(todo._title, todo._description, todo._dueDate, todo._priority)
-        )
-      )
-    );
+        projects = parsed.map(proj =>
+            new Project(
+                proj._title,
+                proj._todoList.map(
+                    todo => new Todo(todo._title, todo._description, todo._dueDate, todo._priority)
+                )
+            )
+        );
 
-    currentProject = projects[0] || null;
-  }
+        currentProject = projects[0] || null;
+    }
+}
+
+function getProjects() {
+    return projects;
 }
 
 function startApp() {
     loadFromStorage();
 
     if (projects.length === 0) {
-        const defaultProject = new Project('Default');
+        const defaultProject = new Project('Default Project');
         projects.push(defaultProject);
         currentProject = defaultProject;
     }
+
+    console.log(projects[0].title);
 }
 
 export {
-  startApp,
-  addProject,
-  removeProject,
-  switchProject,
-  addTodoToCurrentProject,
-  removeTodoFromCurrentProject,
-  updateTodoInCurrentProject
+    startApp,
+    addProject,
+    removeProject,
+    switchProject,
+    addTodoToCurrentProject,
+    removeTodoFromCurrentProject,
+    updateTodoInCurrentProject,
+    getProjects
 };

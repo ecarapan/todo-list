@@ -1,4 +1,3 @@
-
 class Todo {
     constructor(title, description, dueDate, priority) {
         this._title = title;
