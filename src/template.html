@@ -16,8 +16,31 @@
       </nav>
       <main class="todo-list">
         <ul class="todos"></ul>
+        <button class="add-todo">+</button>
       </main>
     </div>
   </div>
+  <div class="modal-overlay hidden" id="project-modal-overlay">
+    <div class="project-modal">
+      <h2>Create a Project</h2>
+      <div class="modal-actions">
+        <input type="text" id="project-title-input" placeholder="Enter a project name" />
+        <div class="modal-buttons">
+          <button id="submit-project-btn">Create</button>
+          <button id="close-project-modal-btn">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="modal-overlay hidden" id="todo-modal-overlay">
+    <div class="todo-modal">
+      <h2>Add Project</h2>
+      <input type="text" id="project-title-input" placeholder="Project Title" />
+      <div class="modal-buttons">
+        <button id="submit-project-btn">Add</button>
+        <button id="close-modal-btn">Cancel</button>
+      </div>
+    </div>
+  </div> -->
 </body>
 </html>

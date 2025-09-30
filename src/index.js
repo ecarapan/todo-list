@@ -1,6 +1,7 @@
 import './styles.css';
 import { startApp } from './app';
-import { renderProjects } from './dom';
+import { renderProjects, setupEventListeners } from './dom';
 
 startApp();
 renderProjects();
+setupEventListeners();

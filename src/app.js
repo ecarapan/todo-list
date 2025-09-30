@@ -79,9 +79,9 @@ function startApp() {
         const defaultProject = new Project('Default Project');
         projects.push(defaultProject);
         currentProject = defaultProject;
-    }
 
-    console.log(projects[0].title);
+        saveToStorage();
+    }
 }
 
 export {
