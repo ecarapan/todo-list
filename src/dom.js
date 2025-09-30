@@ -36,6 +36,15 @@ function setupEventListeners() {
     const submitProjectBtn = document.getElementById('submit-project-btn');
     const projectTitleInput = document.getElementById('project-title-input');
 
+    const addTodoBtn = document.querySelector('.add-todo');
+    const todoModalOverlay = document.getElementById('todo-modal-overlay')
+    const closeTodoModalBtn = document.getElementById('close-todo-modal-btn');
+    const submitTodoBtn = document.getElementById('submit-todo-btn');
+    const todoTitleInput = document.getElementById('todo-title-input');
+    const todoDescInput = document.getElementById('todo-desc-input');
+    const todoDateInput = document.getElementById('todo-date-input');
+    const todoPriorityInput = document.getElementById('todo-priority-input');
+
     addProjectBtn.addEventListener('click', () => {
         projectModalOverlay.classList.remove('hidden');
     });
@@ -52,6 +61,24 @@ function setupEventListeners() {
         projectModalOverlay.classList.add('hidden');
         projectTitleInput.value = "";
     });
+
+    addTodoBtn.addEventListener('click', () => {
+        todoModalOverlay.classList.remove('hidden');
+    });
+
+    submitTodoBtn.addEventListener('click', () => {
+        
+    });
+
+    closeTodoModalBtn.addEventListener('click', () => {
+        todoModalOverlay.classList.add('hidden');
+        todoTitleInput.value = "";
+        todoDescInput.value = "";
+        todoDateInput.value = "";
+        todoPriorityInput.value = "low";
+    }); 
+
+
 }
 
 export { renderProjects, renderTodos, setupEventListeners };
