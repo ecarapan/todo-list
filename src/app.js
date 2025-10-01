@@ -55,14 +55,15 @@ function loadFromStorage() {
     if (data) {
         const parsed = JSON.parse(data);
 
-        projects = parsed.map(proj =>
-            new Project(
-                proj._title,
-                proj._todoList.map(
-                    todo => new Todo(todo._title, todo._description, todo._dueDate, todo._priority)
-                )
-            )
-        );
+        projects = parsed.map(proj => {
+            const project = new Project(proj._title);
+            // Manually add the todos after creating the project
+            proj._todoList.forEach(todoData => {
+                const todo = new Todo(todoData._title, todoData._description, todoData._dueDate, todoData._priority);
+                project.addTodo(todo);
+            });
+            return project;
+        });
 
         currentProject = projects[0] || null;
     }
@@ -70,6 +71,10 @@ function loadFromStorage() {
 
 function getProjects() {
     return projects;
+}
+
+function getCurrentProject() {
+    return currentProject;
 }
 
 function startApp() {
@@ -92,5 +97,7 @@ export {
     addTodoToCurrentProject,
     removeTodoFromCurrentProject,
     updateTodoInCurrentProject,
-    getProjects
+    getProjects,
+    getCurrentProject
+
 };
