@@ -1,4 +1,4 @@
-import { getProjects, addProject, addTodoToCurrentProject, switchProject, getCurrentProject } from './app';
+import { getProjects, addProject, addTodoToCurrentProject, switchProject, getCurrentProject, setTodoCompleted, removeProject } from './app';
 
 function selectFirstProject() {
     const projectsList = document.querySelector('.projects');
@@ -38,17 +38,49 @@ function renderTodos(project) {
 
     project.todoList.forEach(todo => {
         const li = document.createElement('li');
+
+        if (todo.completed) {
+            li.classList.add('checked');
+        }
+
         li.innerHTML = `
             <div class="todo-main">
-                <span class="todo-title">${todo.title}</span>
-                <span class="todo-date">${todo.dueDate}</span>
+                <input type="checkbox" class="complete-checkbox" data-id="${todo.id}" ${todo.completed ? 'checked' : ''}>
+                <span class="todo-title">Todo: ${todo.title}</span>
             </div>
             <div class="todo-details">
-                <span class="todo-desc">${todo.description}</span>
-                <span class="todo-priority ${todo.priority}">${todo.priority}</span>
-                <input type="checkbox" class="complete-checkbox" ${todo.completed ? 'checked' : ''}>
+                <span class="todo-desc">Description: ${todo.description}</span>
+                <span class="todo-priority">Priority: ${todo.priority}</span>
+                <span class="todo-date">Date: ${todo.dueDate}</span>
+                <button class="todo-edit-btn" title="Edit">&#x22EE;</button>
             </div>
         `;
+
+        const checkbox = li.querySelector('.complete-checkbox')
+        checkbox.addEventListener('click', () => {
+            setTodoCompleted(checkbox.dataset.id, checkbox.checked);
+            if (checkbox.checked) {
+                li.classList.add('checked');
+            } else {
+                li.classList.remove('checked');
+            }
+            
+        });
+
+        const editBtn = li.querySelector('.todo-edit-btn');
+        const editTodoModalOverlay = document.getElementById('edit-todo-modal-overlay');
+        const closeTodoModalBtn = document.getElementById('close-todo-modal-btn');
+        const submitTodoBtn = document.getElementById('submit-todo-btn');
+        const todoTitleInput = document.getElementById('todo-title-input');
+        const todoDescInput = document.getElementById('todo-desc-input');
+        const todoDateInput = document.getElementById('todo-date-input');
+        const todoPriorityInput = document.getElementById('todo-priority-input');
+
+        editBtn.addEventListener('click', () => {
+            editTodoModalOverlay.classList.remove('hidden');
+        });
+
+
 
         todosList.appendChild(li);
     });
@@ -71,6 +103,8 @@ function setupEventListeners() {
     const todoDateInput = document.getElementById('todo-date-input');
     const todoPriorityInput = document.getElementById('todo-priority-input');
 
+    const deleteProjectBtn = document.querySelector('.delete-project');
+
     addProjectBtn.addEventListener('click', () => {
         projectModalOverlay.classList.remove('hidden');
     });
@@ -83,7 +117,9 @@ function setupEventListeners() {
 
         const projectsList = document.querySelector('.projects');
         const lastLi = projectsList.querySelector('li:last-child');
-        if (lastLi) lastLi.classList.add('selected-project');
+        if (lastLi) {
+            lastLi.classList.add('selected-project');
+        } 
         renderTodos(getCurrentProject());
     });
 
@@ -122,7 +158,23 @@ function setupEventListeners() {
         todoPriorityInput.value = "low";
     }); 
 
+    deleteProjectBtn.addEventListener('click', () => {
+        if (getProjects().length === 1) {
+            return;
+        }
 
+        removeProject();
+
+        renderProjects();
+        renderTodos(getCurrentProject());
+
+        const projectsList = document.querySelector('.projects');
+        const firstLi = projectsList.querySelector('li');
+        if (firstLi) {
+            firstLi.classList.add('selected-project');
+        }
+        renderTodos(getCurrentProject());
+    });
 }
 
 export { renderProjects, renderTodos, setupEventListeners, selectFirstProject };

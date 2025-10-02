@@ -1,5 +1,8 @@
 class Todo {
+    static _idCounter = 0;
+
     constructor(title, description, dueDate, priority) {
+        this.id = ++Todo._idCounter;
         this._title = title;
         this._description = description;
         this._dueDate = dueDate;

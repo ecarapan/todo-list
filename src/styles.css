@@ -197,6 +197,14 @@ input, select {
   width: 300px;
 }
 
+.edit-modal-buttons {
+  width: 350px;
+}
+
+.modal-buttons.edit-modal-buttons button {
+  width: 100px;
+}
+
 .modal-buttons button {
   border: none;
   height: 35px;
@@ -217,7 +225,18 @@ input, select {
 .todo-list {
   grid-area: todo;
   display: flex;
+  flex-direction: column;
   position: relative;
+}
+
+.delete-project {
+  background-color: rgb(201, 59, 59);
+  margin: 0 300px 0 300px;
+  border-radius: 20px 20px 0 0;
+  padding: 8px;
+  color: white;
+  border: none;
+  font-size: 1.05 rem;
 }
 
 .todos {
@@ -225,7 +244,7 @@ input, select {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  padding: 30px 150px;
+  padding: 30px 30px;
   list-style: none;
 }
 
@@ -236,6 +255,13 @@ input, select {
   background-color: rgb(201, 59, 59);
   border-radius: 10px;
   padding: 15px 20px;
+  color: white;
+}
+
+.todo-main, .todo-details {
+  display: flex;
+  align-items: center;
+  gap: 20px;
 }
 
 .add-todo {
@@ -250,10 +276,25 @@ input, select {
   color: white;
   font-size: 2rem;
   border: none;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
 }
 
 .add-todo:active {
   transform: scale(0.97);
 }
+
+.checked {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+.todo-list li button {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: white;
+}
+
+
 
 

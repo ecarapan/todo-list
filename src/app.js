@@ -12,8 +12,9 @@ function addProject(title) {
     saveToStorage();
 }
 
-function removeProject(project) {
-    projects = projects.filter(item => item !== project);
+function removeProject() {
+    projects = projects.filter(item => item !== currentProject);
+    currentProject = projects[0] || null;
 
     saveToStorage();
 }
@@ -57,9 +58,15 @@ function loadFromStorage() {
 
         projects = parsed.map(proj => {
             const project = new Project(proj._title);
-            // Manually add the todos after creating the project
             proj._todoList.forEach(todoData => {
-                const todo = new Todo(todoData._title, todoData._description, todoData._dueDate, todoData._priority);
+                const todo = new Todo(
+                    todoData._title,
+                    todoData._description,
+                    todoData._dueDate,
+                    todoData._priority
+                );
+                todo.id = todoData.id;
+                todo.completed = todoData._completed;
                 project.addTodo(todo);
             });
             return project;
@@ -75,6 +82,13 @@ function getProjects() {
 
 function getCurrentProject() {
     return currentProject;
+}
+
+function setTodoCompleted(todoId, value) {
+    const todo = currentProject.todoList.find(t => t.id == todoId);
+    todo.completed = value;
+
+    saveToStorage();
 }
 
 function startApp() {
@@ -98,6 +112,6 @@ export {
     removeTodoFromCurrentProject,
     updateTodoInCurrentProject,
     getProjects,
-    getCurrentProject
-
+    getCurrentProject,
+    setTodoCompleted
 };
