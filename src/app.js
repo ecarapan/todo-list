@@ -35,16 +35,20 @@ function addTodoToCurrentProject(todoData) {
     saveToStorage();
 }
 
-function removeTodoFromCurrentProject(todo) {
-    currentProject.removeTodo(todo);
-
-    saveToStorage();
+function removeTodoFromCurrentProject(todoId) {
+    const todo = currentProject.todoList.find(t => t.id == todoId);
+    if (todo) {
+        currentProject.removeTodo(todo);
+        saveToStorage();
+    }
 }
 
-function updateTodoInCurrentProject(todo, updates) {
-    todo.updateTodo(updates);
-
-    saveToStorage();
+function updateTodoInCurrentProject(todoId, updates) {
+    const todo = currentProject.todoList.find(t => t.id == todoId);
+    if (todo) {
+        todo.updateTodo(updates);
+        saveToStorage();
+    }
 }
 
 function saveToStorage() {
@@ -55,22 +59,39 @@ function loadFromStorage() {
     const data = localStorage.getItem('projects');
     if (data) {
         const parsed = JSON.parse(data);
+        let maxTodoId = 0;
+        let maxProjectId = 0;
 
-        projects = parsed.map(proj => {
-            const project = new Project(proj._title);
-            proj._todoList.forEach(todoData => {
-                const todo = new Todo(
-                    todoData._title,
-                    todoData._description,
-                    todoData._dueDate,
-                    todoData._priority
-                );
-                todo.id = todoData.id;
-                todo.completed = todoData._completed;
-                project.addTodo(todo);
-            });
+        projects = parsed.map(projData => {
+            const project = new Project(projData._title);
+            project.id = projData._id; 
+
+            if (project.id > maxProjectId) {
+                maxProjectId = project.id;
+            }
+
+            if (projData._todoList) {
+                projData._todoList.forEach(todoData => {
+                    const todo = new Todo(
+                        todoData._title,
+                        todoData._description,
+                        todoData._dueDate,
+                        todoData._priority
+                    );
+                    todo.id = todoData._id; 
+                    todo.completed = todoData._completed;
+                    project.addTodo(todo);
+
+                    if (todo.id > maxTodoId) {
+                        maxTodoId = todo.id;
+                    }
+                });
+            }
             return project;
         });
+
+        Project._idCounter = maxProjectId;
+        Todo._idCounter = maxTodoId;
 
         currentProject = projects[0] || null;
     }

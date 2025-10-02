@@ -2,12 +2,20 @@ class Todo {
     static _idCounter = 0;
 
     constructor(title, description, dueDate, priority) {
-        this.id = ++Todo._idCounter;
+        this._id = ++Todo._idCounter;
         this._title = title;
         this._description = description;
         this._dueDate = dueDate;
         this._priority = priority;
         this._completed = false;
+    }
+
+    get id() {
+        return this._id;
+    }
+
+    set id(value) {
+        this._id = value;
     }
 
     get title() {

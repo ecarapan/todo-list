@@ -1,9 +1,20 @@
 import Todo from './todo';
 
 class Project {
+    static _idCounter = 0;
+
     constructor(title) {
+        this._id = ++Project._idCounter;
         this._title = title;
         this._todoList = [];
+    }
+
+    get id() {
+        return this._id;
+    }
+
+    set id(value) {
+        this._id = value;
     }
 
     get title() {
