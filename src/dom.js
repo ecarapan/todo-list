@@ -1,4 +1,4 @@
-import { getProjects, addProject, addTodoToCurrentProject, switchProject, getCurrentProject, setTodoCompleted, removeProject } from './app';
+import { getProjects, addProject, addTodoToCurrentProject, switchProject, getCurrentProject, setTodoCompleted, removeProject, removeTodoFromCurrentProject, updateTodoInCurrentProject } from './app';
 
 function selectFirstProject() {
     const projectsList = document.querySelector('.projects');
@@ -7,7 +7,7 @@ function selectFirstProject() {
 
     const firstProject = getProjects()[0];
     switchProject(firstProject);
-    renderTodos(firstProject);
+    renderTodos();
 }
 
 function renderProjects() {
@@ -25,14 +25,15 @@ function renderProjects() {
             li.classList.add('selected-project');
 
             switchProject(project);
-            renderTodos(project);
+            renderTodos();
         });
 
         projectsList.appendChild(li);
     });
 }
 
-function renderTodos(project) {
+function renderTodos() {
+    const project = getCurrentProject();
     const todosList = document.querySelector('.todos');
     todosList.innerHTML = '';
 
@@ -69,22 +70,52 @@ function renderTodos(project) {
 
         const editBtn = li.querySelector('.todo-edit-btn');
         const editTodoModalOverlay = document.getElementById('edit-todo-modal-overlay');
-        const closeTodoModalBtn = document.getElementById('close-todo-modal-btn');
-        const submitTodoBtn = document.getElementById('submit-todo-btn');
-        const todoTitleInput = document.getElementById('todo-title-input');
-        const todoDescInput = document.getElementById('todo-desc-input');
-        const todoDateInput = document.getElementById('todo-date-input');
-        const todoPriorityInput = document.getElementById('todo-priority-input');
+        const closeEditTodoModalBtn = document.getElementById('close-edit-todo-modal-btn');
+        const updateTodoBtn = document.getElementById('update-todo-btn');
+        const editTodoTitleInput = document.getElementById('edit-todo-title-input');
+        const editTodoDescInput = document.getElementById('edit-todo-desc-input');
+        const editTodoDateInput = document.getElementById('edit-todo-date-input');
+        const editTodoPriorityInput = document.getElementById('edit-todo-priority-input');
+        const deleteTodoBtn = document.getElementById('delete-todo-btn');
 
         editBtn.addEventListener('click', () => {
             editTodoModalOverlay.classList.remove('hidden');
+            editTodoTitleInput.value = todo.title;
+            editTodoDescInput.value = todo.description;
+            editTodoDateInput.value = todo.dueDate;
+            editTodoPriorityInput.value = todo.priority;
         });
 
+        updateTodoBtn.addEventListener('click', () => {
+            const updates = {
+                title: editTodoTitleInput.value,
+                description: editTodoDescInput.value,
+                dueDate: editTodoDateInput.value,
+                priority: editTodoPriorityInput.value
+            };
+            updateTodoInCurrentProject(todo, updates);
 
+            editTodoModalOverlay.classList.add('hidden');
+            renderTodos();
+        });
+
+        closeEditTodoModalBtn.addEventListener('click', () => {
+            editTodoModalOverlay.classList.add('hidden');
+            editTodoTitleInput.value = todo.title;
+            editTodoDescInput.value = todo.description;
+            editTodoDateInput.value = todo.dueDate;
+            editTodoPriorityInput.value = todo.priority;
+        });
+
+        deleteTodoBtn.addEventListener('click', () => {
+            removeTodoFromCurrentProject(todo);
+            renderTodos();
+
+            editTodoModalOverlay.classList.add('hidden');
+        });
 
         todosList.appendChild(li);
     });
-
 }
 
 function setupEventListeners() {
@@ -102,7 +133,6 @@ function setupEventListeners() {
     const todoDescInput = document.getElementById('todo-desc-input');
     const todoDateInput = document.getElementById('todo-date-input');
     const todoPriorityInput = document.getElementById('todo-priority-input');
-
     const deleteProjectBtn = document.querySelector('.delete-project');
 
     addProjectBtn.addEventListener('click', () => {
@@ -120,7 +150,7 @@ function setupEventListeners() {
         if (lastLi) {
             lastLi.classList.add('selected-project');
         } 
-        renderTodos(getCurrentProject());
+        renderTodos();
     });
 
     closeProjectModalBtn.addEventListener('click', () => {
@@ -147,7 +177,7 @@ function setupEventListeners() {
         todoDateInput.value = "";
         todoPriorityInput.value = "low";
 
-        renderTodos(getCurrentProject());
+        renderTodos();
     });
 
     closeTodoModalBtn.addEventListener('click', () => {
@@ -166,14 +196,14 @@ function setupEventListeners() {
         removeProject();
 
         renderProjects();
-        renderTodos(getCurrentProject());
+        renderTodos();
 
         const projectsList = document.querySelector('.projects');
         const firstLi = projectsList.querySelector('li');
         if (firstLi) {
             firstLi.classList.add('selected-project');
         }
-        renderTodos(getCurrentProject());
+        renderTodos();
     });
 }
 
