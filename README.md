@@ -1,9 +1,9 @@
-# Restaurant Page
+# Todo List
 
-Small restaurant page UI utilizing Webpack.
+Simple to-do list web app.
 
 ## Live Demo
-[https://ecarapan.github.io/restaurant-page/](https://ecarapan.github.io/restaurant-page/)
+[https://ecarapan.github.io/todo-list/](https://ecarapan.github.io/todo-list/)
 
 ## Technologies
 - HTML
