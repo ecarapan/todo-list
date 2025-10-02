@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+<script defer src="main.js"></script></head>
+<body>
+  <div class="container">
+    <div class="main-content">
+      <div class="header">TO-DO</div>
+      <nav class="sidebar">
+        <h1 class="nav-title">Projects</h1>
+        <ul class="projects"></ul>
+        <button class="add-project">+</button>
+      </nav>
+      <main class="todo-list">
+        <ul class="todos"></ul>
+        <button class="delete-project">Delete Project</button>
+        <button class="add-todo">+</button>
+      </main>
+    </div>
+  </div>
+  <div class="modal-overlay hidden" id="project-modal-overlay">
+    <div class="project-modal">
+      <h2>Create a Project</h2>
+      <div class="modal-actions">
+        <div class="form-row">
+          <label for="project-title-input">Title:</label>
+          <input type="text" id="project-title-input" placeholder="Enter a project name" />
+        </div>
+        <div class="modal-buttons">
+          <button id="submit-project-btn">Create</button>
+          <button id="close-project-modal-btn">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-overlay hidden" id="todo-modal-overlay">
+    <div class="todo-modal">
+      <h2>Create a Todo</h2>
+      <div class="modal-actions">
+        <div class="todo-inputs">
+          <div class="form-row">
+            <label for="todo-title-input">Name:</label>
+            <input type="text" id="todo-title-input" placeholder="Enter a todo name" />
+          </div>
+          <div class="form-row">
+            <label for="todo-desc-input">Description:</label>
+            <input type="text" id="todo-desc-input" placeholder="Enter a description" />
+          </div>
+          <div class="form-row">
+            <label for="todo-date-input">Due Date:</label>
+            <input type="date" id="todo-date-input" placeholder="Due date" />
+          </div>
+          <div class="form-row">
+            <label for="todo-priority-input">Priority:</label>
+            <select id="todo-priority-input">
+              <option value="low">Low</option>
+              <option value="medium">Medium</option>
+              <option value="high">High</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-buttons">
+          <button id="submit-todo-btn">Create</button>
+          <button id="close-todo-modal-btn">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-overlay hidden" id="edit-todo-modal-overlay">
+    <div class="todo-modal">
+      <h2>Edit Todo</h2>
+      <div class="modal-actions">
+        <div class="todo-inputs">
+          <div class="form-row">
+            <label for="edit-todo-title-input">Name:</label>
+            <input type="text" id="edit-todo-title-input" placeholder="Enter a todo name" />
+          </div>
+          <div class="form-row">
+            <label for="edit-todo-desc-input">Description:</label>
+            <input type="text" id="edit-todo-desc-input" placeholder="Enter a description" />
+          </div>
+          <div class="form-row">
+            <label for="edit-todo-date-input">Due Date:</label>
+            <input type="date" id="edit-todo-date-input" placeholder="Due date" />
+          </div>
+          <div class="form-row">
+            <label for="edit-todo-priority-input">Priority:</label>
+            <select id="edit-todo-priority-input">
+              <option value="low">Low</option>
+              <option value="medium">Medium</option>
+              <option value="high">High</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-buttons edit-modal-buttons">
+          <button id="delete-todo-btn">Delete Todo</button>
+          <button id="update-todo-btn">Update</button>
+          <button id="close-edit-todo-modal-btn">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
